@@ -48,6 +48,23 @@ let heroesArray = [
     const archerHealthTxt = document.getElementById("archer-health-txt");
     const warriorHealthTxt = document.getElementById("warrior-health-txt");
 
+    function UpdateAllHealthBars() {
+      // Update health bars and texts
+      dragonHealthBar.style.width = `${
+        (dragonObject.currentHP / dragonObject.maxHP) * 100
+      }%`;
+
+      function SetHealthBar(hero, bar) {
+        var life = hero.currentHP / hero.maxHP;
+        var pixels = life * 300;
+        bar.style.width = `${pixels}px`;
+      }
+
+      SetHealthBar(heroesArray[0], healerHealthBar);
+      SetHealthBar(heroesArray[1], archerHealthBar);
+      SetHealthBar(heroesArray[2], warriorHealthBar);
+    }
+
     // Add click event listener for the healer
     healerImg.addEventListener("click", function () {
       // Handle Henriette Healer's action
@@ -66,20 +83,7 @@ let heroesArray = [
           }
         });
 
-        // Update health bars and texts
-        dragonHealthBar.style.width = `${
-          (dragonObject.currentHP / dragonObject.maxHP) * 100
-        }%`;
-
-        function SetHealthBar(hero, bar) {
-          var life = hero.currentHP / hero.maxHP;
-          var pixels = life * 300;
-          bar.style.width = `${pixels}px`;
-        }
-
-        SetHealthBar(heroesArray[0], healerHealthBar);
-        SetHealthBar(heroesArray[1], archerHealthBar);
-        SetHealthBar(heroesArray[2], warriorHealthBar);
+        UpdateAllHealthBars();
 
         // Update health texts
         dragonHealthTxt.innerText = `${dragonObject.currentHP} / ${dragonObject.maxHP} HP`;
