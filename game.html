@@ -148,9 +148,9 @@
 
             SetHealthBar(heroesArray[0], healerHealthBar);
             SetHealthBar(heroesArray[1], archerHealthBar);
-            warriorHealthBar.style.width = `${
-              (heroesArray[2].currentHP / heroesArray[2].maxHP) * 100
-            }%`;
+            SetHealthBar(heroesArray[2], warriorHealthBar);
+
+           
 
             // Update health texts
             dragonHealthTxt.innerText = `${dragonObject.currentHP} / ${dragonObject.maxHP} HP`;
