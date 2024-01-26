@@ -139,14 +139,15 @@
               (dragonObject.currentHP / dragonObject.maxHP) * 100
             }%`;
 
-            var healerLife = heroesArray[0].currentHP / heroesArray[0].maxHP;
-            var heroPixels = healerLife * 300;
-            console.log("healer: " + healerLife);
-            healerHealthBar.style.width = `${heroPixels}px`;
+            function SetHealthBar(hero, bar) {
+              var healerLife = hero.currentHP / hero.maxHP;
+              var heroPixels = healerLife * 300;
+              console.log("healer: " + healerLife);
+              bar.style.width = `${heroPixels}px`;
+            }
 
-            archerHealthBar.style.width = `${
-              (heroesArray[1].currentHP / heroesArray[1].maxHP) * 100
-            }%`;
+            SetHealthBar(heroesArray[0], healerHealthBar);
+            SetHealthBar(heroesArray[1], archerHealthBar);
             warriorHealthBar.style.width = `${
               (heroesArray[2].currentHP / heroesArray[2].maxHP) * 100
             }%`;
