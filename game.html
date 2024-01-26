@@ -140,17 +140,14 @@
             }%`;
 
             function SetHealthBar(hero, bar) {
-              var healerLife = hero.currentHP / hero.maxHP;
-              var heroPixels = healerLife * 300;
-              console.log("healer: " + healerLife);
-              bar.style.width = `${heroPixels}px`;
+              var life = hero.currentHP / hero.maxHP;
+              var pixels = life * 300;
+              bar.style.width = `${pixels}px`;
             }
 
             SetHealthBar(heroesArray[0], healerHealthBar);
             SetHealthBar(heroesArray[1], archerHealthBar);
             SetHealthBar(heroesArray[2], warriorHealthBar);
-
-           
 
             // Update health texts
             dragonHealthTxt.innerText = `${dragonObject.currentHP} / ${dragonObject.maxHP} HP`;
