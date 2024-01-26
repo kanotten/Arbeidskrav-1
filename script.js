@@ -54,6 +54,9 @@ let heroesArray = [
       if (heroesArray[0].alive && dragonObject.alive) {
         // Deal damage to the dragon
         dragonObject.currentHP -= heroesArray[0].damage;
+        if (dragonObject.currentHP < 0){
+            dragonObject.currentHP = 0;
+        }
 
         // Limit healing to 100 HP and only heal alive heroes
         heroesArray.forEach((hero) => {
