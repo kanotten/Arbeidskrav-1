@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arbeidskrav 1!</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <!-- HTML code must not be changed -->
+
+  <body>
+    <div class="main-container">
+      <!-- healthbar for hereos -->
+      <div class="hero-health-containers">
+        <div class="healthbar-container">
+          <!--healer healthbar must be changed to change health -->
+          <div class="healthbar healer-health"></div>
+          <div class="text-container">
+            <p id="healer-name-txt">Healerens navn</p>
+            <p id="healer-health-txt">400 / 400 HP</p>
+          </div>
+        </div>
+        <div class="healthbar-container">
+          <!-- archer healthbar must be changed to change health -->
+          <div class="healthbar archer-health"></div>
+          <div class="text-container">
+            <p id="archer-name-txt">Archerens navn</p>
+            <p id="archer-health-txt">600 / 600 HP</p>
+          </div>
+        </div>
+        <div class="healthbar-container">
+          <!-- Warrior healthbar must be changed to change its health -->
+          <div class="healthbar warrior-health"></div>
+          <div class="text-container">
+            <p id="warrior-name-txt">Warriorens navn</p>
+            <p id="warrior-health-txt">800 / 800 HP</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Healthbar for enemy -->
+      <div class="dragon-health-container">
+        <div class="healthbar-container">
+          <!-- Dragons healthbar must be changed for it to change health -->
+          <div class="healthbar dragon-health"></div>
+          <div class="text-container">
+            <p id="dragon-name-txt">Dragens navn</p>
+            <div class="text-container dragon-health-txt">2000 / 2000 HP</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image container for hero -->
+      <div class="img-container healer">
+        <img class="hero" src="assets/healer.png" />
+      </div>
+      <div class="img-container archer">
+        <img class="hero" src="assets/archer.png" />
+      </div>
+      <div class="img-container warrior">
+        <img class="hero" src="assets/warrior.png" />
+      </div>
+
+      <!-- Image container for enemy -->
+      <div class="enemy-container">
+        <div class="img-container dragon-container">
+          <img class="dragon" src="assets/dragon.png" />
+        </div>
+      </div>
+    </div>
+    <script>
+      //Stats for heroes
+      let heroesArray = [
+        {
+          id: 0,
+          name: "Henriette Healer",
+          maxHP: 400,
+          currentHP: 400,
+          damage: 100,
+          alive: true,
+        },
+        {
+          id: 1,
+          name: "Ariana archer",
+          maxHP: 500,
+          currentHP: 500,
+          damage: 400,
+          alive: true,
+        },
+        {
+          id: 2,
+          name: "Wyona Warrior",
+          maxHP: 600,
+          currentHP: 600,
+          damage: 400,
+          alive: true,
+        },
+      ];
+
+      let dragonObject = {
+        name: "Daar Dragon",
+        maxHP: 2000,
+        currentHP: 2000,
+        damage: 200,
+        alive: true,
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get elements
+        const healerImg = document.querySelector(".img-container.healer img");
+        const archerImg = document.querySelector(".img-container.archer img");
+        const warriorImg = document.querySelector(".img-container.warrior img");
+        const dragonHealthBar = document.querySelector(".dragon-health");
+        const healerHealthBar = document.querySelector(".healer-health");
+        const archerHealthBar = document.querySelector(".archer-health");
+        const warriorHealthBar = document.querySelector(".warrior-health");
+        const dragonNameTxt = document.getElementById("dragon-name-txt");
+        const dragonHealthTxt = document.querySelector(".dragon-health-txt");
+        const healerNameTxt = document.getElementById("healer-name-txt");
+        const healerHealthTxt = document.getElementById("healer-health-txt");
+        const archerNameTxt = document.getElementById("archer-name-txt");
+        const archerHealthTxt = document.getElementById("archer-health-txt");
+        const warriorNameTxt = document.getElementById("warrior-name-txt");
+        const warriorHealthTxt = document.getElementById("warrior-health-txt");
+
+        // Set initial values
+        healerNameTxt.innerText = heroesArray[0].name;
+        healerHealthTxt.innerText = `${heroesArray[0].currentHP} / ${heroesArray[0].maxHP} HP`;
+        archerNameTxt.innerText = heroesArray[1].name;
+        archerHealthTxt.innerText = `${heroesArray[1].currentHP} / ${heroesArray[1].maxHP} HP`;
+        warriorNameTxt.innerText = heroesArray[2].name;
+        warriorHealthTxt.innerText = `${heroesArray[2].currentHP} / ${heroesArray[2].maxHP} HP`;
+        dragonNameTxt.innerText = dragonObject.name;
+        dragonHealthTxt.innerText = `${dragonObject.currentHP} / ${dragonObject.maxHP} HP`;
+
+        // Add click event listeners
+        healerImg.addEventListener("click", function () {
+          if (heroesArray[0].alive) {
+            // Limit healing to 100 HP and only heal alive heroes
+            const healAmount = Math.min(
+              100,
+              heroesArray[0].maxHP - heroesArray[0].currentHP
+            );
+            heroesArray[0].currentHP += healAmount;
+
+            // Update health bar and text for the healer
+            updateHealthBar(healerHealthBar, heroesArray[0]);
+            updateHealthText(healerHealthTxt, heroesArray[0]);
+
+            // Deal damage to the dragon
+            if (dragonObject.alive) {
+              dragonObject.currentHP -= heroesArray[0].damage;
+
+              // Update health bar and text for the dragon
+              updateHealthBar(dragonHealthBar, dragonObject);
+              updateHealthText(dragonHealthTxt, dragonObject);
+            }
+          }
+        });
+
+        // Simulate dragon's attack
+        setInterval(function () {
+          if (dragonObject.alive) {
+            // Randomly select a hero to attack
+            const targetHero =
+              heroesArray[Math.floor(Math.random() * heroesArray.length)];
+
+            // Deal damage to the hero
+            targetHero.currentHP -= dragonObject.damage;
+
+            // Update health bar and text for the targeted hero
+            const targetHealthBar = document.querySelector(
+              `.${targetHero.name.toLowerCase()}-health`
+            );
+            const targetHealthTxt = document.getElementById(
+              `${targetHero.name.toLowerCase()}-health-txt`
+            );
+            updateHealthBar(targetHealthBar, targetHero);
+            updateHealthText(targetHealthTxt, targetHero);
+
+            // Check if the hero is now dead
+            if (targetHero.currentHP <= 0) {
+              targetHero.alive = false;
+              // Check the game status after each attack
+              checkGameStatus();
+            }
+          }
+        }, 3000); // Dragon attacks every 3 seconds
+
+        // Add other click event listeners for archer and warrior...
+        // Function to update health bar with color change
+        function updateHealthBar(healthBar, character) {
+          const percentage = (character.currentHP / character.maxHP) * 100;
+          const clampedPercentage = Math.min(100, Math.max(0, percentage)); // Ensure percentage is within bounds
+          healthBar.style.width = `${clampedPercentage}%`;
+
+          // Change health bar color based on percentage
+          if (clampedPercentage > 70) {
+            healthBar.style.backgroundColor = "rgb(121, 192, 121)";
+          } else if (clampedPercentage > 30) {
+            healthBar.style.backgroundColor = "yellow";
+          } else {
+            healthBar.style.backgroundColor = "red";
+          }
+        }
+
+        // Function to update health text
+        function updateHealthText(healthText, character) {
+          healthText.innerText = `${character.currentHP} / ${character.maxHP} HP`;
+        }
+
+        // Handle the "D" key press for damage boost
+        window.addEventListener("keydown", function (event) {
+          if (event.key === "D" || event.key === "d") {
+            applyDamageBoost();
+          }
+        });
+
+        // Function to apply damage boost to all heroes
+        function applyDamageBoost() {
+          const damageBoostPercentage = 0.1; // 10%
+          heroesArray.forEach((hero) => {
+            if (hero.alive) {
+              hero.damage += hero.damage * damageBoostPercentage;
+            }
+          });
+        }
+
+        // Function to check game win or lose
+        function checkGameStatus() {
+          const allHeroesDead = heroesArray.every((hero) => !hero.alive);
+          const dragonDead = !dragonObject.alive;
+
+          if (allHeroesDead) {
+            handleGameOutcome("lose");
+          } else if (dragonDead) {
+            handleGameOutcome("win");
+          }
+        }
+
+        // Function to handle game outcome (win or lose)
+        function handleGameOutcome(outcome) {
+          const outcomeDiv = document.createElement("div");
+          const outcomeHeading = document.createElement("h1");
+
+          if (outcome === "win") {
+            outcomeHeading.innerText = "Congratulations! You Win!";
+            outcomeDiv.className = "win-outcome"; // Add your win outcome class
+          } else if (outcome === "lose") {
+            outcomeHeading.innerText = "Game Over! You Lose!";
+            outcomeDiv.className = "lose-outcome"; // Add your lose outcome class
+          }
+
+          // Append the elements to the body
+          document.body.appendChild(outcomeDiv);
+          outcomeDiv.appendChild(outcomeHeading);
+        }
+      });
+    </script>
+  </body>
+</html>
