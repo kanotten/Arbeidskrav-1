@@ -138,9 +138,12 @@
             dragonHealthBar.style.width = `${
               (dragonObject.currentHP / dragonObject.maxHP) * 100
             }%`;
-            healerHealthBar.style.width = `${
-              (heroesArray[0].currentHP / heroesArray[0].maxHP) * 100
-            }%`;
+
+            var healerLife = heroesArray[0].currentHP / heroesArray[0].maxHP;
+            var heroPixels = healerLife * 300;
+            console.log("healer: " + healerLife);
+            healerHealthBar.style.width = `${heroPixels}px`;
+
             archerHealthBar.style.width = `${
               (heroesArray[1].currentHP / heroesArray[1].maxHP) * 100
             }%`;
