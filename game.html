@@ -105,6 +105,38 @@
         alive: true,
       };
 
+      // Function to update health bar
+      function updateHealthBar(healthBar, character) {
+        const maxWidth = 300; // Set the maximum width of the health bar container
+        const width = Math.min(
+          maxWidth,
+          (character.currentHP / character.maxHP) * maxWidth
+        );
+        healthBar.style.width = `${width}px`;
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Your existing code...
+
+        // Add click event listener for the healer
+        healerImg.addEventListener("click", function () {
+          // Handle Henriette Healer's action
+
+          // Call the updateHealthBar function when updating health bars
+          updateHealthBar(dragonHealthBar, dragonObject);
+          updateHealthBar(healerHealthBar, heroesArray[0]);
+          updateHealthBar(archerHealthBar, heroesArray[1]);
+          updateHealthBar(warriorHealthBar, heroesArray[2]);
+
+          // Your other code...
+        });
+
+        // Function to check and display game status
+        function checkGameStatus() {
+          // Your existing code...
+        }
+      });
+
       document.addEventListener("DOMContentLoaded", function () {
         // Get the healer image element
         const healerImg = document.querySelector(".img-container.healer img");
@@ -178,6 +210,14 @@
           }
         });
       });
+      function updateHealthBar(healthBar, character) {
+        const maxWidth = 300; // Set the maximum width of the health bar container
+        const width = Math.min(
+          maxWidth,
+          (character.currentHP / character.maxHP) * maxWidth
+        );
+        healthBar.style.width = `${width}px`;
+      }
     </script>
   </body>
 </html>
