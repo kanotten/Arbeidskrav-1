@@ -86,7 +86,7 @@ function attackDragon(hero) {
   }
 }
 
-// Add click event listeners for each hero
+// Add click event listeners for each hero // may not be the best way to add counter attack for dragon
 healerImg.addEventListener("click", function () {
   attackDragon(heroesArray[0]);
   performDragonCounterAttack();
