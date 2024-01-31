@@ -3,8 +3,8 @@ let heroesArray = [
   {
     id: 0,
     name: "Henriette Healer",
-    maxHP: 400,
-    currentHP: 400,
+    maxHP: 100,
+    currentHP: 100,
     damage: 100,
     alive: true,
   },
@@ -69,32 +69,48 @@ function updateHealthText() {
   warriorHealthTxt.innerText = `${heroesArray[2].currentHP} / ${heroesArray[2].maxHP} HP`;
 }
 
-// heroes attack dragon
-function attackDragon(hero) {
-  if (hero.alive && dragonObject.alive) {
-    
-    HealHeroes();
-    // Deal damage to the dragon
-    dragonObject.currentHP -= hero.damage;
-    if (dragonObject.currentHP < 0) {
-      dragonObject.currentHP = 0;
-    }
-
-    // Display alert message
-    alert(`${hero.name} har gjort skade på ${dragonObject.name}`);
-
-    // Update health bars and texts
-    UpdateAllHealthBars();
-
-    updateHealthText();
+function updateDragonHealth(damageMultiplier) {
+  dragonObject.currentHP -= damageMultiplier;
+  if (dragonObject.currentHP < 0) {
+    dragonObject.currentHP = 0;
+    dragonObject.alive = false;
+    alert("you win");
   }
+}
+
+// heroes attack dragon
+function performHeroAttack(hero) {
+  if (!hero.alive) {
+    console.log("hero is dead");
+    return;
+  }
+  if (!dragonObject.alive) {
+    console.log("dragon is dead");
+    return;
+  }
+
+  updateDragonHealth(hero.damage);
+
+  // alert(`${hero.name} har gjort skade på ${dragonObject.name}`);
+
+  UpdateAllHealthBars();
+  updateHealthText();
 }
 
 function HealHeroes() {
   for (let i = 0; i < heroesArray.length; i++) {
+
+    if (!heroesArray[i].alive) {
+      console.log("loop hero dead");
+      console.log("life: " + heroesArray[i].currentHP);
+      continue;
+    }
+
     life = heroesArray[i].currentHP;
+    console.log(life);
     if (life <= 0) {
-      // hero is dead
+      console.log("hero is dead");
+      console.log("life: " + heroesArray[i].currentHP);
       return;
     }
 
@@ -123,22 +139,30 @@ function performDragonCounterAttack() {
   console.log("Dragon counter attack!");
 
   const randomHeroIndex = Math.floor(Math.random() * heroesArray.length);
-  const randomHero = heroesArray[randomHeroIndex];
-  console.log("Random Hero Index:", randomHeroIndex);
-  console.log("Random Hero:", randomHero);
 
-  if (randomHero.alive) {
+  if (heroesArray[randomHeroIndex].alive) {
     // Reduser heltenes liv basert på dragens skade
-    randomHero.currentHP -= dragonObject.damage;
+    heroesArray[randomHeroIndex].currentHP -= dragonObject.damage;
 
     // Sjekk om helten er død
-    if (randomHero.currentHP <= 0) {
-      randomHero.currentHP = 0;
-      randomHero.alive = false;
+    if (heroesArray[randomHeroIndex].currentHP <= 0) {
+      heroesArray[randomHeroIndex].currentHP = 0;
+      heroesArray[randomHeroIndex].alive = false;
     }
 
     UpdateAllHealthBars();
   }
+}
+
+function ButtonAttack(hero) {
+  if (!hero.alive) {
+    return;
+  }
+  HealHeroes();
+  performHeroAttack(hero);
+  performDragonCounterAttack();
+  UpdateAllHealthBars();
+  updateHealthText();
 }
 
 function addEventListeners() {
@@ -147,21 +171,20 @@ function addEventListeners() {
   const warriorImg = document.querySelector(".img-container.warrior img");
 
   healerImg.addEventListener("click", function () {
-    attackDragon(heroesArray[0]);
-    performDragonCounterAttack();
+    ButtonAttack(heroesArray[0]);
   });
   archerImg.addEventListener("click", function () {
-    attackDragon(heroesArray[1]);
-    performDragonCounterAttack();
+    ButtonAttack(heroesArray[1]);
   });
   warriorImg.addEventListener("click", function () {
-    attackDragon(heroesArray[2]);
-    performDragonCounterAttack();
+    ButtonAttack(heroesArray[2]);
   });
 }
 
-function runGame() {
+function initialize() {
   addEventListeners();
+  UpdateAllHealthBars();
+  updateHealthText();
 }
 
-runGame();
+initialize();
