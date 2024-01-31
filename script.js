@@ -139,30 +139,31 @@ function getHeroHealthText(heroId) {
 
 // Funksjon for å håndtere dragens motangrep
 function performDragonCounterAttack() {
+  if (!dragonObject.alive) {
+    console.log("Dragon is dead. ");
+    return
+  }
   console.log("Dragon counter attack!");
-  if (dragonObject.alive) {
-    if (Math.random() < 1 / 3) {
-      const randomHeroIndex = Math.floor(Math.random() * heroesArray.length);
-      const randomHero = heroesArray[randomHeroIndex];
-      console.log("Random Hero Index:", randomHeroIndex);
-      console.log("Random Hero:", randomHero);
 
-      if (randomHero.alive) {
-        // Reduser heltenes liv basert på dragens skade
-        randomHero.currentHP -= dragonObject.damage;
+  const randomHeroIndex = Math.floor(Math.random() * heroesArray.length);
+  const randomHero = heroesArray[randomHeroIndex];
+  console.log("Random Hero Index:", randomHeroIndex);
+  console.log("Random Hero:", randomHero);
 
-        // Sjekk om helten er død
-        if (randomHero.currentHP <= 0) {
-          randomHero.currentHP = 0;
-          randomHero.alive = false;
-        }
+  if (randomHero.alive) {
+    // Reduser heltenes liv basert på dragens skade
+    randomHero.currentHP -= dragonObject.damage;
 
-        updateHeroHealth(
-          randomHero,
-          getHeroHealthBar(randomHero.id),
-          getHeroHealthText(randomHero.id)
-        );
-      }
+    // Sjekk om helten er død
+    if (randomHero.currentHP <= 0) {
+      randomHero.currentHP = 0;
+      randomHero.alive = false;
     }
+
+    updateHeroHealth(
+      randomHero,
+      getHeroHealthBar(randomHero.id),
+      getHeroHealthText(randomHero.id)
+    );
   }
 }
