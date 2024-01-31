@@ -3,10 +3,11 @@ let heroesArray = [
   {
     id: 0,
     name: "Henriette Healer",
-    maxHP: 100,
-    currentHP: 100,
+    maxHP: 400,
+    currentHP: 400,
     damage: 100,
     alive: true,
+    canHeal: true,
   },
   {
     id: 1,
@@ -15,6 +16,7 @@ let heroesArray = [
     currentHP: 500,
     damage: 400,
     alive: true,
+    canHeal: false,
   },
   {
     id: 2,
@@ -23,6 +25,7 @@ let heroesArray = [
     currentHP: 600,
     damage: 400,
     alive: true,
+    canHeal: false,
   },
 ];
 
@@ -158,7 +161,9 @@ function ButtonAttack(hero) {
   if (!hero.alive) {
     return;
   }
-  HealHeroes();
+  if (hero.canHeal){
+    HealHeroes();
+  }
   performHeroAttack(hero);
   performDragonCounterAttack();
   UpdateAllHealthBars();
