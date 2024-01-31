@@ -74,7 +74,7 @@ function updateHealthText() {
 
 function updateDragonHealth(damageMultiplier) {
   dragonObject.currentHP -= damageMultiplier;
-  if (dragonObject.currentHP < 0) {
+  if (dragonObject.currentHP <= 0) {
     dragonObject.currentHP = 0;
     dragonObject.alive = false;
     alert("you win");
