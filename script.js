@@ -34,23 +34,6 @@ let dragonObject = {
   alive: true,
 };
 
-const healerImg = document.querySelector(".img-container.healer img");
-const archerImg = document.querySelector(".img-container.archer img");
-const warriorImg = document.querySelector(".img-container.warrior img");
-
-healerImg.addEventListener("click", function () {
-  attackDragon(heroesArray[0]);
-  performDragonCounterAttack();
-});
-archerImg.addEventListener("click", function () {
-  attackDragon(heroesArray[1]);
-  performDragonCounterAttack();
-});
-warriorImg.addEventListener("click", function () {
-  attackDragon(heroesArray[2]);
-  performDragonCounterAttack();
-});
-
 // Get elements for health bars and texts
 const dragonHealthBar = document.querySelector(".dragon-health");
 const healerHealthBar = document.querySelector(".healer-health");
@@ -187,3 +170,24 @@ function performDragonCounterAttack() {
     );
   }
 }
+
+function runGame() {
+  const healerImg = document.querySelector(".img-container.healer img");
+  const archerImg = document.querySelector(".img-container.archer img");
+  const warriorImg = document.querySelector(".img-container.warrior img");
+
+  healerImg.addEventListener("click", function () {
+    attackDragon(heroesArray[0]);
+    performDragonCounterAttack();
+  });
+  archerImg.addEventListener("click", function () {
+    attackDragon(heroesArray[1]);
+    performDragonCounterAttack();
+  });
+  warriorImg.addEventListener("click", function () {
+    attackDragon(heroesArray[2]);
+    performDragonCounterAttack();
+  });
+}
+
+runGame();
