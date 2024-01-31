@@ -40,12 +40,6 @@ const healerHealthBar = document.querySelector(".healer-health");
 const archerHealthBar = document.querySelector(".archer-health");
 const warriorHealthBar = document.querySelector(".warrior-health");
 
-// healthtxt
-const dragonHealthTxt = document.querySelector(".dragon-health-txt");
-const healerHealthTxt = document.getElementById("healer-health-txt");
-const archerHealthTxt = document.getElementById("archer-health-txt");
-const warriorHealthTxt = document.getElementById("warrior-health-txt");
-
 function UpdateAllHealthBars() {
   // Update health bars and texts
   dragonHealthBar.style.width = `${
@@ -61,6 +55,18 @@ function UpdateAllHealthBars() {
   SetHealthBar(heroesArray[0], healerHealthBar);
   SetHealthBar(heroesArray[1], archerHealthBar);
   SetHealthBar(heroesArray[2], warriorHealthBar);
+}
+
+function updateHealthText() {
+  const dragonHealthTxt = document.querySelector(".dragon-health-txt");
+  const healerHealthTxt = document.getElementById("healer-health-txt");
+  const archerHealthTxt = document.getElementById("archer-health-txt");
+  const warriorHealthTxt = document.getElementById("warrior-health-txt");
+
+  dragonHealthTxt.innerText = `${dragonObject.currentHP} / ${dragonObject.maxHP} HP`;
+  healerHealthTxt.innerText = `${heroesArray[0].currentHP} / ${heroesArray[0].maxHP} HP`;
+  archerHealthTxt.innerText = `${heroesArray[1].currentHP} / ${heroesArray[1].maxHP} HP`;
+  warriorHealthTxt.innerText = `${heroesArray[2].currentHP} / ${heroesArray[2].maxHP} HP`;
 }
 
 // heroes attack dragon
@@ -79,10 +85,8 @@ function attackDragon(hero) {
 
     // Update health bars and texts
     UpdateAllHealthBars();
-    dragonHealthTxt.innerText = `${dragonObject.currentHP} / ${dragonObject.maxHP} HP`;
-    healerHealthTxt.innerText = `${heroesArray[0].currentHP} / ${heroesArray[0].maxHP} HP`;
-    archerHealthTxt.innerText = `${heroesArray[1].currentHP} / ${heroesArray[1].maxHP} HP`;
-    warriorHealthTxt.innerText = `${heroesArray[2].currentHP} / ${heroesArray[2].maxHP} HP`;
+
+    updateHealthText();
   }
 }
 
@@ -110,36 +114,6 @@ function updateHeroHealth(hero, healthBar, healthText) {
   healthText.innerText = `${hero.currentHP} / ${hero.maxHP} HP`;
 }
 
-// Funksjon for å hente helsestolpen til en helt basert på ID
-function getHeroHealthBar(heroId) {
-  switch (heroId) {
-    case 0:
-      return healerHealthBar;
-    case 1:
-      return archerHealthBar;
-    case 2:
-      return warriorHealthBar;
-    default:
-      // Hvis ID ikke samsvarer med noen helt, returner null eller håndter på annen måte
-      return null;
-  }
-}
-
-// Funksjon for å hente helse-teksten til en helt basert på ID
-function getHeroHealthText(heroId) {
-  switch (heroId) {
-    case 0:
-      return healerHealthTxt;
-    case 1:
-      return archerHealthTxt;
-    case 2:
-      return warriorHealthTxt;
-    default:
-      // Hvis ID ikke samsvarer med noen helt, returner null eller håndter på annen måte
-      return null;
-  }
-}
-
 // Funksjon for å håndtere dragens motangrep
 function performDragonCounterAttack() {
   if (!dragonObject.alive) {
@@ -163,15 +137,11 @@ function performDragonCounterAttack() {
       randomHero.alive = false;
     }
 
-    updateHeroHealth(
-      randomHero,
-      getHeroHealthBar(randomHero.id),
-      getHeroHealthText(randomHero.id)
-    );
+    UpdateAllHealthBars();
   }
 }
 
-function runGame() {
+function addEventListeners() {
   const healerImg = document.querySelector(".img-container.healer img");
   const archerImg = document.querySelector(".img-container.archer img");
   const warriorImg = document.querySelector(".img-container.warrior img");
@@ -188,6 +158,10 @@ function runGame() {
     attackDragon(heroesArray[2]);
     performDragonCounterAttack();
   });
+}
+
+function runGame() {
+  addEventListeners();
 }
 
 runGame();
