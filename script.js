@@ -80,8 +80,11 @@ function UpdateAllHealthBars() {
   SetHealthBar(heroesArray[2], warriorHealthBar);
 }
 
+// heroes attack dragon
 function attackDragon(hero) {
   if (hero.alive && dragonObject.alive) {
+    
+    HealHeroes();
     // Deal damage to the dragon
     dragonObject.currentHP -= hero.damage;
     if (dragonObject.currentHP < 0) {
@@ -97,6 +100,23 @@ function attackDragon(hero) {
     healerHealthTxt.innerText = `${heroesArray[0].currentHP} / ${heroesArray[0].maxHP} HP`;
     archerHealthTxt.innerText = `${heroesArray[1].currentHP} / ${heroesArray[1].maxHP} HP`;
     warriorHealthTxt.innerText = `${heroesArray[2].currentHP} / ${heroesArray[2].maxHP} HP`;
+  }
+}
+
+function HealHeroes() {
+  for (let i = 0; i < heroesArray.length; i++) {
+    life = heroesArray[i].currentHP;
+    if (life <= 0) {
+      // hero is dead
+      return;
+    }
+
+    heroesArray[i].currentHP += 100;
+
+    if (heroesArray[i].currentHP > heroesArray[i].maxHP) {
+      // pay the taxes
+      heroesArray[i].currentHP = heroesArray[i].maxHP;
+    }
   }
 }
 
