@@ -34,16 +34,30 @@ let dragonObject = {
   alive: true,
 };
 
-// Get the healer image element
 const healerImg = document.querySelector(".img-container.healer img");
 const archerImg = document.querySelector(".img-container.archer img");
 const warriorImg = document.querySelector(".img-container.warrior img");
+
+healerImg.addEventListener("click", function () {
+  attackDragon(heroesArray[0]);
+  performDragonCounterAttack();
+});
+archerImg.addEventListener("click", function () {
+  attackDragon(heroesArray[1]);
+  performDragonCounterAttack();
+});
+warriorImg.addEventListener("click", function () {
+  attackDragon(heroesArray[2]);
+  performDragonCounterAttack();
+});
 
 // Get elements for health bars and texts
 const dragonHealthBar = document.querySelector(".dragon-health");
 const healerHealthBar = document.querySelector(".healer-health");
 const archerHealthBar = document.querySelector(".archer-health");
 const warriorHealthBar = document.querySelector(".warrior-health");
+
+// healthtxt
 const dragonHealthTxt = document.querySelector(".dragon-health-txt");
 const healerHealthTxt = document.getElementById("healer-health-txt");
 const archerHealthTxt = document.getElementById("archer-health-txt");
@@ -57,8 +71,8 @@ function UpdateAllHealthBars() {
 
   function SetHealthBar(hero, bar) {
     var life = hero.currentHP / hero.maxHP;
-    var pixels = life * 300;
-    bar.style.width = `${pixels}px`;
+    var pixels = life * 100;
+    bar.style.width = `${pixels}%`;
   }
 
   SetHealthBar(heroesArray[0], healerHealthBar);
@@ -85,22 +99,6 @@ function attackDragon(hero) {
     warriorHealthTxt.innerText = `${heroesArray[2].currentHP} / ${heroesArray[2].maxHP} HP`;
   }
 }
-
-// Add click event listeners for each hero // may not be the best way to add counter attack for dragon
-healerImg.addEventListener("click", function () {
-  attackDragon(heroesArray[0]);
-  performDragonCounterAttack();
-});
-
-archerImg.addEventListener("click", function () {
-  attackDragon(heroesArray[1]);
-  performDragonCounterAttack();
-});
-
-warriorImg.addEventListener("click", function () {
-  attackDragon(heroesArray[2]);
-  performDragonCounterAttack();
-});
 
 function updateHeroHealth(hero, healthBar, healthText) {
   var life = hero.currentHP / hero.maxHP;
