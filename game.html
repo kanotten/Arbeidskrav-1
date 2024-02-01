@@ -1,73 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Arbeidskrav 1!</title>
-    <link rel="stylesheet" href="game.css" />
-  </head>
-  <!-- HTML code must not be changed -->
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Arbeidskrav 1!</title>
+        <link rel="stylesheet" href="game.css" />
+    </head>
+    <!-- HTML code must not be changed -->
 
-  <body>
-    <div class="main-container">
-      <!-- healthbar for hereos -->
-      <div class="hero-health-containers">
-        <div class="healthbar-container">
-          <!--healer healthbar must be changed to change health -->
-          <div class="healthbar healer-health"></div>
-          <div class="text-container">
-            <p id="healer-name-txt">Healerens navn</p>
-            <p id="healer-health-txt">400 / 400 HP</p>
-          </div>
-        </div>
-        <div class="healthbar-container">
-          <!-- archer healthbar must be changed to change health -->
-          <div class="healthbar archer-health"></div>
-          <div class="text-container">
-            <p id="archer-name-txt">Archerens navn</p>
-            <p id="archer-health-txt">600 / 600 HP</p>
-          </div>
-        </div>
-        <div class="healthbar-container">
-          <!-- Warrior healthbar must be changed to change its health -->
-          <div class="healthbar warrior-health"></div>
-          <div class="text-container">
-            <p id="warrior-name-txt">Warriorens navn</p>
-            <p id="warrior-health-txt">800 / 800 HP</p>
-          </div>
-        </div>
-      </div>
+    <body>
+        <div class="main-container">
+            <!-- healthbar for hereos -->
+            <div class="hero-health-containers">
+                <div class="healthbar-container">
+                    <!--healer healthbar must be changed to change health -->
+                    <div class="healthbar healer-health"></div>
+                    <div class="text-container">
+                        <p id="healer-name-txt">Healerens navn</p>
+                        <p id="healer-health-txt">400 / 400 HP</p>
+                    </div>
+                </div>
+                <div class="healthbar-container">
+                    <!-- archer healthbar must be changed to change health -->
+                    <div class="healthbar archer-health"></div>
+                    <div class="text-container">
+                        <p id="archer-name-txt">Archerens navn</p>
+                        <p id="archer-health-txt">600 / 600 HP</p>
+                    </div>
+                </div>
+                <div class="healthbar-container">
+                    <!-- Warrior healthbar must be changed to change its health -->
+                    <div class="healthbar warrior-health"></div>
+                    <div class="text-container">
+                        <p id="warrior-name-txt">Warriorens navn</p>
+                        <p id="warrior-health-txt">800 / 800 HP</p>
+                    </div>
+                </div>
+            </div>
 
-      <!-- Healthbar for enemy -->
-      <div class="dragon-health-container">
-        <div class="healthbar-container">
-          <!-- Dragons healthbar must be changed for it to change health -->
-          <div class="healthbar dragon-health"></div>
-          <div class="text-container">
-            <p id="dragon-name-txt">Dragens navn</p>
-            <div class="text-container dragon-health-txt">2000 / 2000 HP</div>
-          </div>
-        </div>
-      </div>
+            <!-- Healthbar for enemy -->
+            <div class="dragon-health-container">
+                <div class="healthbar-container">
+                    <!-- Dragons healthbar must be changed for it to change health -->
+                    <div class="healthbar dragon-health"></div>
+                    <div class="text-container">
+                        <p id="dragon-name-txt">Dragens navn</p>
+                        <div class="text-container dragon-health-txt">
+                            2000 / 2000 HP
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      <!-- Image container for hero -->
-      <div class="img-container healer">
-        <img class="hero" src="assets/healer.png" />
-      </div>
-      <div class="img-container archer">
-        <img class="hero" src="assets/archer.png" />
-      </div>
-      <div class="img-container warrior">
-        <img class="hero" src="assets/warrior.png" />
-      </div>
+            <!-- Image container for hero -->
+            <div class="img-container healer">
+                <img class="hero" src="assets/healer.png" />
+            </div>
+            <div class="img-container archer">
+                <img class="hero" src="assets/archer.png" />
+            </div>
+            <div class="img-container warrior">
+                <img class="hero" src="assets/warrior.png" />
+            </div>
 
-      <!-- Image container for enemy -->
-      <div class="enemy-container">
-        <div class="img-container dragon-container">
-          <img class="dragon" src="assets/dragon.png" />
+            <!-- Image container for enemy -->
+            <div class="enemy-container">
+                <div class="img-container dragon-container">
+                    <img class="dragon" src="assets/dragon.png" />
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <script src="script.js"></script>
-  </body>
+        <script src="script.js"></script>
+    </body>
 </html>

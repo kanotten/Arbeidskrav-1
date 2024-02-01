@@ -44,7 +44,7 @@ const archerHealthBar = document.querySelector(".archer-health");
 const warriorHealthBar = document.querySelector(".warrior-health");
 
 function UpdateAllHealthBars() {
-  // Update health bars and texts
+  // Updates all health bars and texts
   dragonHealthBar.style.width = `${
     (dragonObject.currentHP / dragonObject.maxHP) * 100
   }%`;
@@ -102,7 +102,6 @@ function performHeroAttack(hero) {
 
 function HealHeroes() {
   for (let i = 0; i < heroesArray.length; i++) {
-
     if (!heroesArray[i].alive) {
       console.log("loop hero dead");
       console.log("life: " + heroesArray[i].currentHP);
@@ -137,7 +136,7 @@ function updateHeroHealth(hero, healthBar, healthText) {
 function performDragonCounterAttack() {
   if (!dragonObject.alive) {
     console.log("Dragon is dead. ");
-    return
+    return;
   }
   console.log("Dragon counter attack!");
 
@@ -161,7 +160,7 @@ function ButtonAttack(hero) {
   if (!hero.alive) {
     return;
   }
-  if (hero.canHeal){
+  if (hero.canHeal) {
     HealHeroes();
   }
   performHeroAttack(hero);
@@ -183,6 +182,46 @@ function addEventListeners() {
   });
   warriorImg.addEventListener("click", function () {
     ButtonAttack(heroesArray[2]);
+  });
+}
+
+function damageBoost() {
+  const boostPercentage = 0.1;
+
+  // Apply damage boost to heroes
+  for (let i = 0; i < heroesArray.length; i++) {
+    heroesArray[i].damage += Math.ceil(heroesArray[i].damage * boostPercentage);
+  }
+
+  // Initiate dragon attack
+  performDragonCounterAttack();
+
+  // Show an alert message for the damage boost
+  alert("Damage boost added! All heroes have a 10% damage increase.");
+}
+
+function addEventListeners() {
+  const addClickListener = (img, index) => {
+    img.addEventListener("click", function () {
+      ButtonAttack(heroesArray[index]);
+    });
+  };
+
+  const healerImg = document.querySelector(".img-container.healer img");
+  const archerImg = document.querySelector(".img-container.archer img");
+  const warriorImg = document.querySelector(".img-container.warrior img");
+
+  addClickListener(healerImg, 0);
+  addClickListener(archerImg, 1);
+  addClickListener(warriorImg, 2);
+
+  // Add event listener for the "keydown" event to trigger damage boost on "d" keypress
+  document.addEventListener("keydown", function (event) {
+    // Check if the pressed key is "d" (case-insensitive)
+    if (event.key.toLowerCase() === "d") {
+      // Call the damageBoost function
+      damageBoost();
+    }
   });
 }
 
